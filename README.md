@@ -1,5 +1,7 @@
 # scholar-mcp
 
+[![CI](https://github.com/raovivek02/scholar-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/raovivek02/scholar-mcp/actions/workflows/ci.yml)
+
 An [MCP](https://modelcontextprotocol.io) server that gives LLM agents **grounded access to
 academic literature**: paper search over arXiv and Semantic Scholar, citation graphs, related-paper
 discovery, and BibTeX export, plus prompt templates that make the model write related-work
@@ -47,19 +49,19 @@ DOIs, or Semantic Scholar ids; they are normalised automatically.
 
 - **Typed schemas** via Pydantic `Field` constraints (`limit` 1-50, `depth` 1-2, ...); invalid calls
   are rejected by the protocol layer before any network call.
-- **Rate limiting & resilience:** per-host throttling (arXiv 1 req / 3 s, Semantic Scholar 1 req / s),
+- **Rate limiting & resilience:** per-host throttling (arXiv 1 req / 3 s, Semantic Scholar 1 req / 1.6 s, safely under its 1 req/s key limit),
   retries with exponential backoff, honours `Retry-After`, distinct errors for 404 / 429 / 5xx.
 - **Caching:** SQLite TTL cache (search 1 h, paper 24 h, citations 6 h) so agent loops don't burn quota.
 - **LLM-readable errors:** failures say what went wrong and what to try next. Errors subclass the SDK's
   `ToolError`, because the SDK hides the text of unexpected exceptions from the client.
 - **Bounded outputs:** abstracts trimmed in lists, graphs capped by nodes / per-node / per-level
   limits, with a `truncated` flag, so responses fit in a context window.
-- **Works with `mcp` 1.x and 2.x** (the SDK renamed `FastMCP` to `MCPServer` in 2.0).
+- **MCP SDK compatibility:** developed and tested on `mcp` 2.x (where `FastMCP` became `MCPServer`); a small import shim keeps 1.x working, but 1.x is not covered by CI.
 
 ## Quick start
 
 ```bash
-git clone <your-repo-url> && cd scholar-mcp
+git clone https://github.com/raovivek02/scholar-mcp.git && cd scholar-mcp
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,agent]"
 pytest -q                          # unit tests use mocked HTTP, no network needed
@@ -113,6 +115,7 @@ and loops until the model produces a final answer.
 | `tool_selection` | Required tools were called |
 | `retrieval_recall` | Fraction of known key papers that appeared in tool output |
 | `grounded` | Every arXiv id in the final answer was returned by a tool (no invented citations) |
+| `citation_support` | Every "(Author et al., Year)" citation matches a paper a tool returned |
 | `graceful_failure` | A nonexistent paper is reported as not found, not hallucinated |
 
 ```bash
@@ -138,12 +141,21 @@ Model: `gemini-3.5-flash-lite` - 8 cases
 | forward-citations | True | None | True | 3 |
 | foundations-graph | True | None | True | 3 |
 | bibtex | True | 1.0 | True | 2 |
-| related-work | True | 0.6666666666666666 | True | 3 |
+| related-work | True | 0.667 | True | 3 |
 | similar-papers | True | None | True | 4 |
 | missing-paper | True | None | True | 3 |
 
 Single run on 8 hand-written queries (`eval/cases.json`). A small sample, so treat it as a smoke-level evaluation, not a benchmark.
 
+
+## Configuration
+
+| Variable | Purpose |
+|---|---|
+| `SEMANTIC_SCHOLAR_API_KEY` | Semantic Scholar key (strongly recommended) |
+| `SCHOLAR_MCP_CACHE` | Cache file path (default `~/.cache/scholar-mcp/cache.sqlite`) |
+| `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` | For `client/agent.py` |
+| `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY` | For `client/agent_openai.py` (Ollama, Gemini, Groq, ...) |
 
 ## Project layout
 
@@ -160,6 +172,9 @@ tests/             unit + stdio protocol tests  scripts/ live API smoke test
   fetched in a 200-paper window, so very highly cited papers are sampled, not exhaustive.
 - Citation graphs are bounded samples of top-cited neighbours, not complete networks.
 - Abstracts only; full-text retrieval is not implemented.
+
+- The evaluation is small: 8 hand-written queries, one run, one model (Gemini 3.5 Flash-Lite via its free tier).
+- Semantic Scholar occasionally returns HTTP 429 even within the key's limit. The client retries with backoff (up to 5 times); a call that still fails reaches the model as a tool error it can react to (in one eval run the agent fell back to arXiv search).
 
 ## Roadmap
 
