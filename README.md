@@ -148,6 +148,22 @@ Model: `gemini-3.5-flash-lite` - 8 cases
 Single run on 8 hand-written queries (`eval/cases.json`). A small sample, so treat it as a smoke-level evaluation, not a benchmark.
 
 
+## Example run
+
+`python client/agent_openai.py "Write a short related-work paragraph on LiDAR moving object segmentation using 5 papers, with citations"` (Gemini 3.5 Flash-Lite)
+
+Tool calls made by the agent:
+
+```
+[tool] search_papers({'limit': 5, 'min_citations': 20, 'sort_by': 'citations', 'query': 'LiDAR moving object segmentation'})
+```
+
+Final answer:
+
+> Accurately segmenting moving objects from 3D LiDAR scans is a crucial capability for autonomous vehicles, enabling safe navigation, collision avoidance, and robust mapping (Chen et al., 2021; Mersch et al., 2022). Early learning-based approaches largely focused on leveraging sequential range images or point clouds to distinguish dynamic entities from static surroundings (Chen et al., 2021). To better capture geometric and temporal dependencies across consecutive frames, subsequent methods introduced sparse 4D convolutions (Mersch et al., 2022) and efficient spatial-temporal information fusion designs using dual-branch networks (Sun et al., 2022). More recent work has sought to improve computational efficiency and representational power through bird's-eye view (BEV) appearance and motion feature learning (Zhou et al., 2023), as well as by jointly modeling mutually reinforcing tasks such as scene flow estimation and moving object segmentation (Chen et al., 2024).
+
+Every citation above matches a paper returned by that `search_papers` call.
+
 ## Configuration
 
 | Variable | Purpose |
