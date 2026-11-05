@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "scholar": {
+      "command": "/ABSOLUTE/PATH/TO/scholar-mcp/.venv/bin/python",
+      "args": ["-m", "scholar_mcp"],
+      "env": { "SEMANTIC_SCHOLAR_API_KEY": "optional-but-recommended" }
+    }
+  }
+}

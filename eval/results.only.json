@@ -1,0 +1,30 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "n_cases": 1,
+  "summary": {
+    "tool_selection": 1.0,
+    "retrieval_recall": null,
+    "grounded": 1.0,
+    "citation_support": null,
+    "graceful_failure": 0.0
+  },
+  "cases": [
+    {
+      "id": "missing-paper",
+      "tool_selection": true,
+      "retrieval_recall": null,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": null,
+      "unsupported_citations": [],
+      "answer": "The paper identifier `9999.99999` does not correspond to a valid arXiv paper or Semantic Scholar record. Please double-check the arXiv ID or provide the correct title or authors of the paper you would like summarized.",
+      "tools_called": [
+        "get_paper_details",
+        "search_arxiv"
+      ],
+      "tool_errors": 1,
+      "turns": 3,
+      "graceful_failure": false
+    }
+  ]
+}

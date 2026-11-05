@@ -1,0 +1,50 @@
+{
+  "note": "Expected arXiv ids were written from memory - verify them on arxiv.org before reporting results, and extend this file with your own domain questions.",
+  "cases": [
+    {
+      "id": "lookup-details",
+      "prompt": "Who wrote the 'Attention Is All You Need' paper and roughly how many citations does it have?",
+      "expected_tools_any": ["search_papers", "get_paper_details"],
+      "expected_paper_ids": ["1706.03762"]
+    },
+    {
+      "id": "recent-preprints",
+      "prompt": "Find the newest arXiv preprints on LiDAR moving object segmentation in the cs.RO category.",
+      "expected_tools_all": ["search_arxiv"]
+    },
+    {
+      "id": "forward-citations",
+      "prompt": "Which papers cite the SemanticKITTI paper (arXiv 1904.01416)? Give me the three most cited.",
+      "expected_tools_all": ["get_citations"],
+      "expected_paper_ids": []
+    },
+    {
+      "id": "foundations-graph",
+      "prompt": "Starting from arXiv 2206.04129, build a citation graph and tell me which papers are the foundational ones in this area.",
+      "expected_tools_all": ["build_citation_graph"]
+    },
+    {
+      "id": "bibtex",
+      "prompt": "Give me BibTeX for arXiv 1706.03762 and arXiv 1810.04805.",
+      "expected_tools_all": ["export_bibtex"],
+      "expected_paper_ids": ["1706.03762", "1810.04805"]
+    },
+    {
+      "id": "related-work",
+      "prompt": "Write a short related-work paragraph on LiDAR moving object segmentation using 5-8 papers, with citations and BibTeX.",
+      "expected_tools_all": ["search_papers", "export_bibtex"],
+      "expected_paper_ids": ["1904.01416", "2105.08971", "2206.04129"]
+    },
+    {
+      "id": "similar-papers",
+      "prompt": "Find papers similar to MotionNet (arXiv 2003.06754).",
+      "expected_tools_all": ["find_related_papers"]
+    },
+    {
+      "id": "missing-paper",
+      "prompt": "Summarise arXiv paper 9999.99999 for me.",
+      "expected_tools_any": ["get_paper_details", "search_papers", "search_arxiv"],
+      "expect_failure_acknowledged": true
+    }
+  ]
+}

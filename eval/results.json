@@ -1,0 +1,141 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "n_cases": 8,
+  "summary": {
+    "tool_selection": 1.0,
+    "retrieval_recall": 0.889,
+    "grounded": 1.0,
+    "citation_support": 1.0,
+    "graceful_failure": 1.0
+  },
+  "cases": [
+    {
+      "id": "lookup-details",
+      "tool_selection": true,
+      "retrieval_recall": 1.0,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": true,
+      "unsupported_citations": [],
+      "answer": "The landmark paper **\"Attention Is All You Need\"** (Vaswani et al., 2017, arXiv:1706.03762) was written by eight authors:\n\n1. **Ashish Vaswani**\n2. **Noam Shazeer**\n3. **Niki Parmar**\n4. **Jakob Uszkoreit**\n5. **Llion Jones**\n6. **Aidan N. Gomez**\n7. **Lukasz Kaiser**\n8. **Illia Polosukhin**\n\nAs of current metrics, the paper has been exceptionally influential, accumulating roughly **200,000+ citations** (Vaswani et al., 2017).",
+      "tools_called": [
+        "search_papers",
+        "get_paper_details"
+      ],
+      "tool_errors": 0,
+      "turns": 3
+    },
+    {
+      "id": "recent-preprints",
+      "tool_selection": true,
+      "retrieval_recall": null,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": true,
+      "unsupported_citations": [],
+      "answer": "Here are the newest arXiv preprints related to LiDAR moving object segmentation in the `cs.RO` (and `cs.CV`) category retrieved from arXiv:\n\n1. **Temporal Overlapping Prediction: A Self-supervised Pre-training Method for LiDAR Moving Object Segmentation** (Miao et al., 2025)\n   - **arXiv ID:** [2503.07167](https://arxiv.org/abs/2503.07167)\n   - **Abstract Summary:** Proposes Temporal Overlapping Prediction (TOP), a self-supervised pre-training method designed to reduce the manual annotation burden for LiDAR moving object segmentation (MOS). It leverages temporal overlapping points between current and adjacent scans to learn spatiotemporal representations.\n\n2. **MotionBEV: Attention-Aware Online LiDAR Moving Object Segmentation with Bird's Eye View based Appearance and Motion Features** (Zhou et al., 2023)\n   - **arXiv ID:** [2305.07336](https://arxiv.org/abs/2305.07336)\n   - **Abstract Summary:** Presents a fast and accurate framework that converts 3D LiDAR scans into a 2D polar bird's-eye view (BEV) representation to efficiently segment moving objects using appearance and motion features.\n\n3. **Efficient Spatial-Temporal Information Fusion for LiDAR-Based 3D Moving Object Segmentation** (Sun et al., 2022)\n   - **arXiv ID:** [2207.02201](https://arxiv.org/abs/2207.02201)\n   - **Abstract Summary:** Proposes a deep neural network leveraging a range image-based dual-branch structure to effectively exploit spatial-temporal information and multiple representation modalities for LiDAR-MOS.",
+      "tools_called": [
+        "search_arxiv"
+      ],
+      "tool_errors": 0,
+      "turns": 2
+    },
+    {
+      "id": "forward-citations",
+      "tool_selection": true,
+      "retrieval_recall": null,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": true,
+      "unsupported_citations": [],
+      "answer": "Based on citation data from Semantic Scholar, here are the three most-cited papers that cite the SemanticKITTI paper (Behley et al., 2019; arXiv:1904.01416):\n\n1. **Occ3D: A Large-Scale 3D Occupancy Prediction Benchmark for Autonomous Driving** (Tian et al., 2023)  \n   - **Citation Count:** 520  \n   - **arXiv ID:** [2304.14365](https://arxiv.org/abs/2304.14365)  \n\n2. **Transformer-Based Visual Segmentation: A Survey** (Li et al., 2023)  \n   - **Citation Count:** 352  \n   - **arXiv ID:** [2304.09854](https://arxiv.org/abs/2304.09854)  \n\n3. **MotionSC: Data Set and Network for Real-Time Semantic Mapping in Dynamic Environments** (Wilson et al., 2022)  \n   - **Citation Count:** 65  \n   - **arXiv ID:** [2203.07060](https://arxiv.org/abs/2203.07060)",
+      "tools_called": [
+        "get_paper_details",
+        "get_citations"
+      ],
+      "tool_errors": 0,
+      "turns": 3
+    },
+    {
+      "id": "foundations-graph",
+      "tool_selection": true,
+      "retrieval_recall": null,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": true,
+      "unsupported_citations": [],
+      "answer": "Starting from the seed paper by Mersch et al. (**2206.04129**, *Receding Moving Object Segmentation in 3D LiDAR Data Using Sparse 4D Convolutions*), we can analyze its bibliographic roots (references) and core methodological dependencies. \n\nIn the citation graph surrounding this work, the foundational papers can be categorized into three pillars: **spatio-temporal point cloud representations / 4D convolutions**, **foundational datasets and baseline segmentation architectures**, and **probabilistic mapping and filtering**.\n\n---\n\n### 1. Foundational Spatio-Temporal Representations & 4D Convolutions\nThe core contribution of Mersch et al. relies on extending sparse convolutions into the temporal dimension (4D sparse convolutions). The two primary foundational works behind this are:\n* **Minkowski Convolutional Neural Networks (Choy et al., 2019):** *(arXiv:1904.08755)*  \n  Introduced generalized sparse convolutions for high-dimensional data (including 4D spatio-temporal convolutions), serving as the direct computational backbone for sparse voxel-based point cloud processing over time.\n* **KPConv: Flexible and Deformable Convolution for Point Clouds (Thomas et al., 2019):** *(arXiv:1904.08889)*  \n  A foundational work establishing flexible point-convolution operations directly on 3D point clouds without voxelization bottlenecks.\n\n### 2. Datasets and Semantic Segmentation Backbones\nMoving Object Segmentation (MOS) in LiDAR data heavily depends on large-scale benchmarks and robust single-scan semantic segmentation architectures:\n* **SemanticKITTI: A Dataset for Semantic Scene Understanding of LiDAR Sequences (Behley et al., 2019):** *(DOI: 10.1109/ICCV.2019.00939)*  \n  The benchmark dataset on which Mersch et al. and most modern LiDAR MOS methods are trained and evaluated.\n* **RangeNet++: Fast and Accurate LiDAR Semantic Segmentation (Milioto et al., 2019):** *(DOI: 10.1109/IROS40897.2019.8967762)*  \n  A baseline projection-based semantic segmentation framework frequently compared against or built upon for LiDAR sequence understanding.\n* **U-Net: Convolutional Networks for Biomedical Image Segmentation (Ronneberger et al., 2015):** *(arXiv:1505.04597)*  \n  The overarching encoder-decoder architecture paradigm adapted by sparse convolutional networks for dense per-point/per-voxel prediction.\n\n### 3. Probabilistic Filtering & Mapping Foundations\nTo fuse predictions over time and handle receding horizons online, the paper builds upon classical probabilistic robotics frameworks:\n* **Probabilistic Robotics (Thrun et al., 2002):** *(CACM)*  \n  The foundational text establishing Bayesian filtering, recursive state estimation, and occupancy/dynamic mapping concepts used for the binary Bayes filter integration in Mersch et al.\n* **OctoMap: An Efficient Probabilistic 3D Mapping Framework Based on Octrees (Hornung et al., 2013):** *(Autonomous Robots)*  \n  A cornerstone framework for volumetric probabilistic map representation in robotics.",
+      "tools_called": [
+        "get_paper_details",
+        "build_citation_graph"
+      ],
+      "tool_errors": 0,
+      "turns": 3
+    },
+    {
+      "id": "bibtex",
+      "tool_selection": true,
+      "retrieval_recall": 1.0,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": null,
+      "unsupported_citations": [],
+      "answer": "Here is the BibTeX for arXiv:1706.03762 (\"Attention Is All You Need\") and arXiv:1810.04805 (\"BERT\"):\n\n```bibtex\n@article{vaswani2017attention,\n  title = {{Attention is All you Need}},\n  author = {Vaswani, Ashish and Shazeer, Noam and Parmar, N. and Uszkoreit, J. and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, I.},\n  year = {2017},\n  journal = {Neural Information Processing Systems},\n  eprint = {1706.03762},\n  archivePrefix = {arXiv},\n  doi = {10.48550/arXiv.1706.03762},\n  url = {https://www.semanticscholar.org/paper/204e3073870fae3d05bcbc2f6a8e263d9b72e776}\n}\n\n@article{devlin2019bert,\n  title = {{BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding}},\n  author = {Devlin, J. and Chang, Ming-Wei and Lee, Kenton and Toutanova, K.},\n  year = {2019},\n  journal = {North American Chapter of the Association for Computational Linguistics},\n  eprint = {1810.04805},\n  archivePrefix = {arXiv},\n  doi = {10.18653/v1/N19-1423},\n  url = {https://www.semanticscholar.org/paper/df2b0e26d0599ce3e70df8a9da02e51594e0e992}\n}\n```",
+      "tools_called": [
+        "export_bibtex"
+      ],
+      "tool_errors": 0,
+      "turns": 2
+    },
+    {
+      "id": "related-work",
+      "tool_selection": true,
+      "retrieval_recall": 0.6666666666666666,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": true,
+      "unsupported_citations": [],
+      "answer": "### Related Work\n\nAccurately distinguishing moving objects from static surroundings in 3D LiDAR point clouds is critical for autonomous navigation, trajectory forecasting, and safe collision avoidance (Chen et al., 2021; Mersch et al., 2022). Early learning-based pipelines typically processed temporal sequences of range images using convolutional neural networks to capture spatial-temporal motion patterns (Chen et al., 2021; Sun et al., 2022). To improve geometric reasoning and computational efficiency, subsequent methods explored sparse 4D convolutions on voxelized point cloud sequences (Mersch et al., 2022) or mapped point clouds into bird's-eye-view (BEV) representations enriched with attention-aware appearance and motion features (Zhou et al., 2023). Moving beyond purely point-wise classification, recent frameworks have integrated instance-level awareness to better differentiate dynamically moving entities from temporarily stationary traffic participants (Wang et al., 2023), as well as motion-focused residual modeling to further enhance dynamic feature capture (Cheng et al., 2024).\n\n***\n\n### BibTeX Entries\n\n```bibtex\n@article{chen2021moving,\n  title = {{Moving Object Segmentation in 3D LiDAR Data: A Learning-Based Approach Exploiting Sequential Data}},\n  author = {Chen, Xieyuanli and Li, Shi-Jie and Mersch, Benedikt and Wiesmann, Louis and Gall, J\u00fcrgen and Behley, Jens and Stachniss, C.},\n  year = {2021},\n  journal = {IEEE Robotics and Automation Letters},\n  eprint = {2105.08971},\n  archivePrefix = {arXiv},\n  doi = {10.1109/LRA.2021.3093567},\n  url = {https://www.semanticscholar.org/paper/ed097258f99eee600a3f9d267e4857ab7a213b02}\n}\n\n@article{mersch2022receding,\n  title = {{Receding Moving Object Segmentation in 3D LiDAR Data Using Sparse 4D Convolutions}},\n  author = {Mersch, Benedikt and Chen, Xieyuanli and Vizzo, Ignacio and Nunes, Lucas and Behley, Jens and Stachniss, C.},\n  year = {2022},\n  journal = {IEEE Robotics and Automation Letters},\n  eprint = {2206.04129},\n  archivePrefix = {arXiv},\n  doi = {10.48550/arXiv.2206.04129},\n  url = {https://www.semanticscholar.org/paper/ccec6d71d338652cde8eed03785055e6fde90562}\n}\n\n@article{sun2022efficient,\n  title = {{Efficient Spatial-Temporal Information Fusion for LiDAR-Based 3D Moving Object Segmentation}},\n  author = {Sun, Jia-Dai and Dai, Yuchao and Zhang, Xianjing and Xu, Jin-Tao and Ai, R. and Gu, Wei-Hao and Chen, Xieyuanli},\n  year = {2022},\n  journal = {IEEE/RJS International Conference on Intelligent RObots and Systems},\n  eprint = {2207.02201},\n  archivePrefix = {arXiv},\n  doi = {10.1109/IROS47612.2022.9981210},\n  url = {https://www.semanticscholar.org/paper/28856050f963aba64f6e0c3038b61fc9362cee72}\n}\n\n@article{zhou2023motionbev,\n  title = {{MotionBEV: Attention-Aware Online LiDAR Moving Object Segmentation With Bird's Eye View Based Appearance and Motion Features}},\n  author = {Zhou, Bo and Xie, Jia-Peng and Pan, Yan and Wu, Jiajie and Lu, Chuanzhao},\n  year = {2023},\n  journal = {IEEE Robotics and Automation Letters},\n  eprint = {2305.07336},\n  archivePrefix = {arXiv},\n  doi = {10.1109/LRA.2023.3325687},\n  url = {https://www.semanticscholar.org/paper/f207cc1be6ad4e7675565015679cb4a45482fe54}\n}\n\n@article{wang2023insmos,\n  title = {{InsMOS: Instance-Aware Moving Object Segmentation in LiDAR Data}},\n  author = {Wang, Neng and Shi, Cheng-Hao and Guo, Ruibin and Lu, Huimin and Zheng, Zhi-Qiang and Chen, Xieyuanli},\n  year = {2023},\n  journal = {IEEE/RJS International Conference on Intelligent RObots and Systems},\n  eprint = {2303.03909},\n  archivePrefix = {arXiv},\n  doi = {10.1109/IROS55552.2023.10342277},\n  url = {https://www.semanticscholar.org/paper/b9ae4432a2090e72e018b69226d56f32fb9b26d9}\n}\n\n@article{cheng2024motion,\n  title = {{MF-MOS: A Motion-Focused Model for Moving Object Segmentation}},\n  author = {Cheng, Jin-Tao and Zeng, Kang and Huang, Zhuo-Xu and Tang, Xiao-Yu and Wu, Jin and Zhang, Cheng-Xi and Chen, Xieyuanli and Fan, Rui},\n  year = {2024},\n  journal = {IEEE International Conference on Robotics and Automation},\n  eprint = {2401.17023},\n  archivePrefix = {arXiv},\n  doi = {10.1109/ICRA57147.2024.10611400},\n  url = {https://www.semanticscholar.org/paper/c9f869ddcb34746ce605b4939cff9554b67113aa}\n}\n```",
+      "tools_called": [
+        "search_papers",
+        "export_bibtex"
+      ],
+      "tool_errors": 0,
+      "turns": 3
+    },
+    {
+      "id": "similar-papers",
+      "tool_selection": true,
+      "retrieval_recall": null,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": true,
+      "unsupported_citations": [],
+      "answer": "Several lines of research directly build upon, extend, or share the core paradigm of **MotionNet** (Wu et al., 2020)\u2014which performs joint perception and motion prediction in a Bird's-Eye View (BEV) representation from sequential LiDAR or multi-sensor inputs. \n\nPapers similar and related to MotionNet fall into several categories:\n\n### 1. Direct Extensions & Multi-Sensor Fusions of MotionNet\n* **LiCaNet & LiCaNext** (Khalil & Mouftah, 2021a; Khalil & Mouftah, 2021b)\n  * *arXiv:* [10.36227/techrxiv.16553580](https://www.semanticscholar.org/paper/89042c7de38051481a6650184b2153aead235297) / [10.1109/ACCESS.2021.3123169](https://www.semanticscholar.org/paper/8a2f30e0ac7708f0e53261f08cca7e56dbcf3f2b)\n  * *Summary:* These works directly build upon the MotionNet backbone to enhance joint perception and motion prediction by introducing multi-modal sensor fusion (combining LiDAR in BEV/Range views with camera images and sequential range residuals).\n* **End-to-End Multi-View Fusion for Enhanced Perception and Motion Prediction** (Khalil & Mouftah, 2021)\n  * *arXiv:* [10.1109/VTC2021-Fall52928.2021.9625271](https://www.semanticscholar.org/paper/e7534529a56bf77aa8c26a61b3fbeb84cf13e19f)\n  * *Summary:* Another direct adaptation of the MotionNet architecture focusing on multi-view single-sensor LiDAR setups to sharpen feature representation.\n\n### 2. LiDAR-based BEV Multi-Task Perception & Scene Flow\n* **LiDAR-BEVMTN: Real-Time LiDAR Bird\u2019s-Eye View Multi-Task Perception Network for Autonomous Driving** (Mohapatra et al., 2023)\n  * *arXiv:* [2307.08850](https://arxiv.org/abs/2307.08850)\n  * *Summary:* Proposes a real-time multi-task convolutional network for joint LiDAR-based object detection, semantic segmentation, and motion estimation using a shared encoder and task-specific decoders in BEV, closely mirroring MotionNet's unified grid-cell objective.\n* **Temporal Range-Point-Voxel Fusion for Unified BEV Scene Perception and Motion Prediction** (Wang et al., 2026)\n  * *arXiv:* (See IEEE T-ITS preview) \n  * *Summary:* Extends spatio-temporal BEV representation learning to point-voxel fusion architectures to jointly tackle scene perception and future motion forecasting.\n\n### 3. Generative and Diffusion-Based BEV Perception\n* **DiffBEV: Conditional Diffusion Model for Bird's Eye View Perception** (Zou et al., 2023)\n  * *arXiv:* [2303.08333](https://arxiv.org/abs/2303.08333)\n  * *Summary:* Focuses on eliminating sensor noise in BEV representations (originating from LiDAR scans or camera parameters) using conditional diffusion models, which directly impacts downstream tasks like motion prediction that rely on clean spatial-temporal BEV grids.\n* **PriorMotion: Generative Class-Agnostic Motion Prediction with Raster-Vector Motion Field Priors** (Qian et al., 2025)\n  * *arXiv:* [2412.04020](https://arxiv.org/abs/2412.04020)\n  * *Summary:* Explores class-agnostic motion field priors in rasterized representations to predict future trajectories natively without relying solely on predefined bounding boxes, matching MotionNet's grid-wise prediction philosophy.",
+      "tools_called": [
+        "get_paper_details",
+        "find_related_papers",
+        "search_papers"
+      ],
+      "tool_errors": 0,
+      "turns": 4
+    },
+    {
+      "id": "missing-paper",
+      "tool_selection": true,
+      "retrieval_recall": null,
+      "grounded": true,
+      "unsupported_ids": [],
+      "citation_support": null,
+      "unsupported_citations": [],
+      "answer": "The identifier `9999.99999` is not a valid arXiv paper ID, and no paper matches this query on arXiv or Semantic Scholar. Please double-check the arXiv identifier (which typically follows formats like `YYMM.NNNNN` or `hep-th/YYMMNNN`) and try again.",
+      "tools_called": [
+        "get_paper_details",
+        "search_arxiv"
+      ],
+      "tool_errors": 1,
+      "turns": 3,
+      "graceful_failure": true
+    }
+  ]
+}
